@@ -39,7 +39,7 @@ export class EstudiantesService {
 
         for (let i = 0; i < this.estudiantes.length; i++) {
             if (this.estudiantes[i].id == id) {
-                this.estudiantes.splice(i - 1, 1);
+                this.estudiantes.splice(i , 1);
             }
         }
 
