@@ -9,41 +9,37 @@ export class EmpresasService {
     obtenerEmpresas(): Empresa[] {
         return this.empresas;
     }
+
     obtenerEmpresa(id:number):Empresa{
         for (let i: number = 0; i < this.empresas.length; i++) {
             if (this.empresas[i].id == id) {
                 return this.empresas[i];
             }
-
         }
-
     }
-    creaNuevaEmpresa(empresa: Empresa): void {
-        if (!this.validaEmpresa(empresa.nombre)) {
+    
+    creaNuevaEmpresa(empresa: Empresa): boolean {
+        let existeEmpresa=this.empresas.find(n => n.nombre.toLowerCase().trim() === empresa.nombre.toLowerCase().trim());
+        if (!existeEmpresa) {
             if (this.validaTipoEmpresa(empresa.tipo)) {
-
-                empresa.id = this.empresas.length + 1;
+                empresa.id =  this.obtIdDisponible();
                 this.empresas.push(empresa);
+                return true;
             }
-            else{
-                console.log('tipo empresa invalido');
-            }
-
-        }
+          }
+          return false;
     }
 
-    validaEmpresa(nombre: string): boolean {
-        if (this.empresas.length > 0) {
-            for (let i: number = 0; i < this.empresas.length; i++) {
-                if (this.empresas[i].nombre.toLowerCase().trim() == nombre.toLowerCase().trim()) {
-                    return true;
+    obtIdDisponible():number{
+                 let indiceBd:number= this.empresas.length;
+                 let indice:number = 1;
+                 if(indiceBd >= 1){
+                    indice = this.empresas[indiceBd -1].id + 1;
                 }
-
-            }
-        }
-
-        return false;
+                return indice;
+        
     }
+
 
     validaTipoEmpresa(tipo: string): boolean {
 
@@ -51,19 +47,17 @@ export class EmpresasService {
             if (this.tipoEmpresas[i].toLowerCase().trim() == tipo.toLowerCase().trim()) {
                 return true
             }
-
         }
-
-
         return false;
     }
-    eliminaEmpresa(id:number):void{
+
+    eliminaEmpresa(id:number):boolean{
         for (let i: number = 0; i < this.empresas.length; i++) {
             if (this.empresas[i].id == id) {
-                 //this.empresas.splice(i-1,1);
                     this.empresas.splice(i  , 1);
+                    return true;
             }
-
-        }        
+        }  
+        return false;      
     }
 }

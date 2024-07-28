@@ -4,66 +4,45 @@ import { Estudiante } from 'src/model/estudiante';
 export class EstudiantesService {
     private estudiantes: Estudiante[] = [];
     obtenerEstudiantes(): Estudiante[] {
-
         return this.estudiantes;
-
     }
-    creaEstudiante(estudiante: Estudiante): void {
 
-        if (!this.validarExisteMail(estudiante.email)) {
-
-
-            estudiante.id = this.estudiantes.length + 1;
+    creaEstudiante(estudiante: Estudiante): boolean {
+       let existeMail=this.estudiantes.find(n => n.email.toLowerCase().trim() === estudiante.email.toLowerCase().trim());
+        if (!existeMail) {
+            estudiante.id =  this.obtIdDisponible();
             this.estudiantes.push(estudiante);
-            //console.log( this.estudiantes);
+            return true;
         }
-        else {
-            console.log('ya existe');
-        }
+        return false;
     }
-    obtenerEstudiante(id: number): Estudiante {
+    obtIdDisponible():number{
+        let indiceBd:number= this.estudiantes.length;
+        let indice:number = 1;
+        if(indiceBd >= 1){
+           indice = this.estudiantes[indiceBd -1].id + 1;
+       }
+       return indice;
 
-        for (let i: number = 0; i <= this.estudiantes.length; i++) {
-            if (this.estudiantes[i].id == id) {
+}
+    obtenerEstudiante(id:number):Estudiante{
+        for(let i:number=0;i<this.estudiantes.length;i++)
+        {
+            if(this.estudiantes[i].id == id){
                 return this.estudiantes[i];
             }
         }
-        return null;
-
     }
 
 
-    eliminarEstudiante(id: number): void {
-
-
-
+    eliminarEstudiante(id: number): boolean {
         for (let i = 0; i < this.estudiantes.length; i++) {
             if (this.estudiantes[i].id == id) {
                 this.estudiantes.splice(i , 1);
+                return true
             }
         }
-
-    }
-
-    validarExisteMail(email: string): boolean {
-
-        if (this.estudiantes.length == 0) {
-            return false;
-        }
-        else {
-
-            for (let i: number = 0; i < this.estudiantes.length; i++) {
-
-                if (this.estudiantes[i].email == email.toLocaleLowerCase().trim()) {
-                    return true;
-                }
-
-            }
-
-        }
-
         return false;
-    }
-    //Registrar un nuevo estudiante (Verificar si existe el estudiante según el correo ingresado)
 
+    }
 }

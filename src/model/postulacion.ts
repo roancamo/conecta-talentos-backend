@@ -2,7 +2,7 @@ import { Estudiante } from "./estudiante";
 export class Postulacion{
     constructor(
         public id:number,
-        public fechaPostulacion:string,
+        public fechaPostulacion:Date,
         public estudiante: Estudiante,
         public estado:string /* (Pendiente / Aprobado / Rechazado)*/
 
