@@ -3,7 +3,7 @@ import { Postulacion } from "./postulacion";
 export class OfertaLaboral{
     constructor(
         public id:number,
-        public fechaCreación: string,
+        public fechaCreacion: string,
         public descripcion: string,
         public cargo: string,
         public region: string,

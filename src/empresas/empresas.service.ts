@@ -17,9 +17,16 @@ export class EmpresasService {
             }
         }
     }
-    
+    validaEmpresa(nombre: string):boolean{
+        let existeEmpresa=this.empresas.find(n => n.nombre.toLowerCase().trim() === nombre.toLowerCase().trim());
+        if(existeEmpresa){
+            return true;
+        }
+        return false;
+
+    }
     creaNuevaEmpresa(empresa: Empresa): boolean {
-        let existeEmpresa=this.empresas.find(n => n.nombre.toLowerCase().trim() === empresa.nombre.toLowerCase().trim());
+        let existeEmpresa =this.validaEmpresa(empresa.nombre);
         if (!existeEmpresa) {
             if (this.validaTipoEmpresa(empresa.tipo)) {
                 empresa.id =  this.obtIdDisponible();
