@@ -8,10 +8,17 @@ export class EstudiantesService {
     }
 
     creaEstudiante(estudiante: Estudiante): boolean {
-       let existeMail=this.estudiantes.find(n => n.email.toLowerCase().trim() === estudiante.email.toLowerCase().trim());
-        if (!existeMail) {
+       let existe= this.existeEstudiante(estudiante.email);
+        if (!existe) {
             estudiante.id =  this.obtIdDisponible();
             this.estudiantes.push(estudiante);
+            return true;
+        }
+        return false;
+    }
+    existeEstudiante(email:string):boolean{
+        let existeMail=this.estudiantes.find(n => n.email.toLowerCase().trim() === email.toLowerCase().trim());
+        if(existeMail){
             return true;
         }
         return false;

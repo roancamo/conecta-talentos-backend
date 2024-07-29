@@ -7,9 +7,11 @@ import { EmpresasService } from './empresas/empresas.service';
 import { EmpresasController } from './empresas/empresas.controller';
 import { OfertasLaboralesController } from './ofertas-laborales/ofertas-laborales.controller';
 import { OfertasLaboralesService } from './ofertas-laborales/ofertas-laborales.service';
+import { PostulacionesController } from './postulaciones/postulaciones.controller';
+import { PostulacionesService } from './postulaciones/postulaciones.service';
 @Module({
   imports: [],
-  controllers: [AppController,EstudiantesController, EmpresasController,OfertasLaboralesController],
-  providers: [AppService, EstudiantesService, EmpresasService,OfertasLaboralesService ],
+  controllers: [AppController,EstudiantesController, EmpresasController,OfertasLaboralesController, PostulacionesController],
+  providers: [AppService, EstudiantesService, EmpresasService,OfertasLaboralesService, PostulacionesService ],
 })
 export class AppModule {}

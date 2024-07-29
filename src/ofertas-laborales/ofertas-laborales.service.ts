@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OfertaLaboral } from 'src/model/ofertaLaboral';
+import { Postulacion } from 'src/model/postulacion';
 @Injectable()
 export class OfertasLaboralesService {
     private ofertasLaborales :OfertaLaboral[] = [];
@@ -39,5 +40,16 @@ export class OfertasLaboralesService {
         }  
         return false;      
     }
+    agregarPostulacion(postulacion:Postulacion):boolean{
+            for(let i:number=0; i < this.ofertasLaborales.length; i++){
+                if(this.ofertasLaborales[i].cargo.toLowerCase().trim()== postulacion.estudiante.profesion.toLowerCase().trim()  ){
+                        this.ofertasLaborales[i].postulaciones.push(postulacion);
+                        return true;
+                }
+                
+            }
+        return false;
+    }
+
 
 }
